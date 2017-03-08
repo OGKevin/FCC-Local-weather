@@ -49,24 +49,20 @@ $(function() {
     });
 
     var settings = {
-        "async": true,
-        "crossDomain": true,
-        "url": "http://freegeoip.net/json/",
-        "method": "GET",
-        "headers": {
-            "cache-control": "no-cache",
-            "postman-token": "1de52cac-faa6-8480-1f9e-8d1e98a4950d"
-        }
+        dataType: "json",
+        url: "https://freegeoip.net/json?callback=?",
     }
-
     $.ajax(settings).done(function(response) {
         coordinates = {
             lat: response.latitude,
             lon: response.longitude
         }
+
         callApi(coordinates, "ip")
         console.log(response);
     });
+
+
 });
 
 function getWeather(name) {
