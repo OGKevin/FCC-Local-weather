@@ -90,14 +90,10 @@ function callApi(identifier, check) {
 
 
         settings = {
-            async: true,
-            crossDomain: true,
-            url: "http://api.openweathermap.org/data/2.5/weather?id=" + identifier + "&APPID=dbf0eb41d5b7b7996c2105fd1396b8cf&units=imperial",
+            url: "https://cors-anywhere.herokuapp.com/api.openweathermap.org/data/2.5/weather?id=" + identifier + "&APPID=dbf0eb41d5b7b7996c2105fd1396b8cf&units=imperial",
             method: "GET",
-            headers: {
-                "cache-control": "no-cache",
-                "postman-token": "a0d47a11-50de-8ec1-7a5f-79dc9373d5c1"
-            }
+            headers : {origin : ""}
+            ,
         };
         $.ajax(settings).done(function(response) {
             console.log(response);
@@ -105,13 +101,10 @@ function callApi(identifier, check) {
         });
     } else if (check === "ip") {
         settings = {
-            "async": true,
-            "crossDomain": true,
-            "url": "http://api.openweathermap.org/data/2.5/weather?units=imperial&APPID=dbf0eb41d5b7b7996c2105fd1396b8cf&lat=" + identifier.lat + "&lon=" + identifier.lon,
+            "url": "https://cors-anywhere.herokuapp.com/api.openweathermap.org/data/2.5/weather?units=imperial&APPID=dbf0eb41d5b7b7996c2105fd1396b8cf&lat=" + identifier.lat + "&lon=" + identifier.lon,
             "method": "GET",
-            "headers": {
-                "cache-control": "no-cache",
-                "postman-token": "1bfac9b4-76c0-c085-a55f-61410a83a48d"
+            headers: {
+                origin : ""
             }
         }
 
@@ -128,11 +121,9 @@ function apllyInfo(name, temp, descr, icon) {
     $("#temp").html(Math.round(temp));
     $("#condition").html(descr);
     $("#icon, #icon2").attr({
-        src: "http://openweathermap.org/img/w/" + icon + ".png"
+        src: "https://openweathermap.org/img/w/" + icon + ".png"
     });
-    // $("#info").css({
-    //     visibility: "visible"
-    // });
+  
 }
 
 function convertTemp(temp, mode) {
