@@ -34,14 +34,12 @@ $(function() {
         i = 0;
         locationName = $("#locationName").val();
         getWeather(locationName);
-        console.log("search click");
     });
     $("#convert").click(function(event) {
         i++;
         if (i % 2 !== 0) {
             temp = $("#temp").text();
             $("#temp").html(convertTemp(temp, "farenheit"));
-            console.log(convertTemp(temp));
         } else {
             temp = $("#temp").text();
             $("#temp").html(convertTemp(temp, "celsius"));
@@ -59,7 +57,6 @@ $(function() {
         }
 
         callApi(coordinates, "ip")
-        console.log(response);
     });
 
 
@@ -70,16 +67,14 @@ function getWeather(name) {
         url: "./city-list.json",
         async: true,
         cache: true
-    }).done(function(data) {
-        json = JSON.parse(data);
+    }).done(function(json) {
+        // json = JSON.parse(data); This is needs te be uncommented for loacal testing, the json on line 73 should become data
         // this loop is slowing it down ....
         for (var i = 0; i < json.length; i++) {
             if (json[i].name.toLowerCase() === name.toLowerCase()) {
-                console.log(json[i]["_id"]);
                 callApi(json[i]["_id"], "id");
                 break;
             } else if (i === json.length - 1 && json[i].name.toLowerCase() !== name.toLowerCase()) {
-                console.log("name not found");
             }
         }
     }).fail(function() {}).always(function() {});
@@ -96,7 +91,6 @@ function callApi(identifier, check) {
             ,
         };
         $.ajax(settings).done(function(response) {
-            console.log(response);
             apllyInfo(response.name, response.main.temp, response.weather[0].description, response.weather[0].icon);
         });
     } else if (check === "ip") {
@@ -110,7 +104,6 @@ function callApi(identifier, check) {
 
         $.ajax(settings).done(function(response) {
             apllyInfo(response.name, response.main.temp, response.weather[0].description, response.weather[0].icon);
-            console.log(response);
         });
 
     }
